@@ -1,0 +1,16 @@
+torch
+numpy
+scipy
+librosa
+matplotlib
+pandas
+scikit-learn
+tqdm
+transformers
+sentencepiece
+openai-whisper
+g2pk
+jamo
+inflect
+Unidecode
+tensorboard
