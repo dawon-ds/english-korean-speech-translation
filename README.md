@@ -2,7 +2,7 @@
 
 An end-to-end pipeline that converts **English speech into Korean speech** through speech recognition, machine translation, and neural text-to-speech.
 
-[Portfolio](https://app.notion.com/p/3e968564df5a81f0b538ed4ad190e11f)
+[Portfolio](https://incredible-march-0ef.notion.site/English-Korean-Speech-Translation-Pipeline-3e968564df5a81f0b538ed4ad190e11f)
 
 ## Project Overview
 
