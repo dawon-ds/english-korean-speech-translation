@@ -10,14 +10,14 @@ A personal project connecting heterogeneous speech and language models into one 
 
 **Technologies:** Python, PyTorch, Hugging Face Transformers, Whisper, g2pK, Jamo, FastSpeech2, VocGAN.
 
-## Pipeline
+## Approach
+
+### Pipeline
 
 ```text
 English Speech → Whisper → English Text → mBART-50 → Korean Text
                → g2pK/Jamo → FastSpeech2 → Mel-Spectrogram → VocGAN → Korean Speech
 ```
-
-## Implementation
 
 - Integrated Whisper `base.en` for English speech recognition.
 - Added English-to-Korean translation with mBART-50.
@@ -26,7 +26,34 @@ English Speech → Whisper → English Text → mBART-50 → Korean Text
 - Added CPU/GPU device selection.
 - Replaced the original machine-specific KSS path with `KSS_DATA_PATH`.
 
-## Project Structure
+### Main Components
+
+| Stage | Component |
+| --- | --- |
+| Speech-to-Text | Whisper `base.en` |
+| Translation | mBART-50 |
+| Korean preprocessing | g2pK + Jamo |
+| Text-to-Speech | FastSpeech2 |
+| Vocoder | VocGAN |
+| Framework | PyTorch |
+
+### Model Configuration
+
+| FastSpeech2 setting | Value |
+| --- | ---: |
+| Sampling rate | 22,050 Hz |
+| Mel channels | 80 |
+| Encoder / decoder layers | 4 / 4 |
+| Hidden size | 256 |
+| Inference checkpoint step | 350000 |
+
+FastSpeech2 training was monitored through F0, duration, energy, mel, mel-postnet, and total loss in the project materials.
+
+## Results
+
+The project materials demonstrate Korean speech generation from English input using the connected pipeline. They do not provide quantitative STT accuracy, translation BLEU, TTS quality scores, or latency benchmarks.
+
+## Repository Structure
 
 ```text
 .
@@ -53,30 +80,9 @@ English Speech → Whisper → English Text → mBART-50 → Korean Text
 └── README.md
 ```
 
-## Main Components
+## Usage
 
-| Stage | Component |
-| --- | --- |
-| Speech-to-Text | Whisper `base.en` |
-| Translation | mBART-50 |
-| Korean preprocessing | g2pK + Jamo |
-| Text-to-Speech | FastSpeech2 |
-| Vocoder | VocGAN |
-| Framework | PyTorch |
-
-## Model Configuration
-
-| FastSpeech2 setting | Value |
-| --- | ---: |
-| Sampling rate | 22,050 Hz |
-| Mel channels | 80 |
-| Encoder / decoder layers | 4 / 4 |
-| Hidden size | 256 |
-| Inference checkpoint step | 350000 |
-
-FastSpeech2 training was monitored through F0, duration, energy, mel, mel-postnet, and total loss in the project materials.
-
-## Inference Example
+### Inference Example
 
 | Stage | Example |
 | --- | --- |
@@ -84,8 +90,6 @@ FastSpeech2 training was monitored through F0, duration, energy, mel, mel-postne
 | Korean output text | “그녀는 거울을 들여다보고 다른 사람을 봤습니다.” |
 
 The portfolio includes input/output audio and the synthesized spectrogram for this example. It demonstrates the connected inference workflow; it is not a quantitative benchmark.
-
-## Running
 
 The pipeline requires preprocessed KSS artifacts, a FastSpeech2 checkpoint, and a pretrained VocGAN checkpoint. Large datasets and model weights are intentionally excluded.
 
@@ -130,16 +134,14 @@ The current synthesis function truncates the output label to ten characters, whi
 
 The supplied pipeline uses FastSpeech2 checkpoint step `350000`.
 
-## Results & Limitations
+### Data & Artifacts
 
-The project materials demonstrate Korean speech generation from English input using the connected pipeline. They do not provide quantitative STT accuracy, translation BLEU, TTS quality scores, or latency benchmarks.
+This repository is a cleaned portfolio version of the original project. Generated audio, datasets, checkpoints, and pretrained vocoder weights are excluded for portability. The supplied project files did not contain quantitative STT, translation, or TTS benchmark metrics, so no unsupported metrics are claimed here.
 
-Errors can propagate from speech recognition through translation to synthesis. A fresh checkout also requires external checkpoints and preprocessing artifacts before inference can run. The documented example has not been rerun as part of this documentation update.
+## Limitations
+
+Errors can propagate from speech recognition through translation to synthesis. A fresh checkout also requires external checkpoints and preprocessing artifacts before inference can run.
 
 ## Review
 
 The main contribution is the integration of speech recognition, translation, Korean pronunciation preprocessing, and speech synthesis into a modular workflow. Separating these stages makes each model interface easier to inspect and reuse, while highlighting the importance of compatible text representations and audio settings.
-
-## Notes
-
-This repository is a cleaned portfolio version of the original project. Generated audio, datasets, checkpoints, and pretrained vocoder weights are excluded for portability. The supplied project files did not contain quantitative STT, translation, or TTS benchmark metrics, so no unsupported metrics are claimed here.
