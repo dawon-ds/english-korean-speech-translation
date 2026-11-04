@@ -145,3 +145,10 @@ Errors can propagate from speech recognition through translation to synthesis. A
 ## Review
 
 The main contribution is the integration of speech recognition, translation, Korean pronunciation preprocessing, and speech synthesis into a modular workflow. Separating these stages makes each model interface easier to inspect and reuse, while highlighting the importance of compatible text representations and audio settings.
+
+## Data and Third-party Resources
+
+- **Third-party models:** Whisper, mBART-50, FastSpeech2 and VocGAN. Check the license and permitted uses of each particular codebase, checkpoint and dataset; trained weights and KSS audio are not redistributed.
+- **Environment:** inference requires separately obtained checkpoints, preprocessed KSS artifacts and model-compatible dependencies as documented in Usage.
+
+Dependency lists are in `requirements.txt`; unless versions are explicitly pinned there, they do not reproduce an exact historical software environment. No redistribution permission for third-party inputs is implied by this repository.
