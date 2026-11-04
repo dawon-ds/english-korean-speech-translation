@@ -51,7 +51,7 @@ FastSpeech2 training was monitored through F0, duration, energy, mel, mel-postne
 
 ## Results
 
-The project materials demonstrate Korean speech generation from English input using the connected pipeline. They do not provide quantitative STT accuracy, translation BLEU, TTS quality scores, or latency benchmarks.
+The project materials demonstrate an **English speech → Korean speech** inference example, with input/output audio and a synthesized spectrogram shown in the linked portfolio. This is a qualitative pipeline demonstration; quantitative STT, translation, speech-quality, and latency benchmarks were not reported.
 
 ## Repository Structure
 
