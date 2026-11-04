@@ -17,3 +17,5 @@ preprocessed/kss/*.npy
 *.ckpt
 *.wav
 *.mp3
+.env.*
+!.env.example
