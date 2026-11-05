@@ -111,7 +111,7 @@ Synthesis writes these outputs under `results/`:
 
 - `_vocgan_output_voi.wav` — VocGAN speech output
 - `_griffin_lim_output_voi.wav` — Griffin–Lim reconstruction
-- `_output_voi.png` — synthesized spectrogram, F0, and energy
+- `_output_voi.png` — synthesized mel-spectrogram visualization (F0 and energy are predicted but not separately plotted by the public code)
 
 The current synthesis function truncates the output label to ten characters, which produces the `output_voi` filenames.
 
@@ -126,4 +126,5 @@ Errors can propagate from speech recognition through translation to synthesis. A
 ## Data and Third-party Resources
 
 - **Third-party models:** Whisper, mBART-50, FastSpeech2 and VocGAN. Check the license and permitted uses of each particular codebase, checkpoint and dataset; trained weights and KSS audio are not redistributed.
+
 Dependency lists are in `requirements.txt`; unless versions are explicitly pinned there, they do not reproduce an exact historical software environment. No redistribution permission for third-party inputs is implied by this repository.
