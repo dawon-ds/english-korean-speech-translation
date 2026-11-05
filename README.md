@@ -11,8 +11,51 @@ A personal project focused on connecting pretrained models through compatible te
 ### Pipeline
 
 ```text
-English Speech → Whisper → English Text → mBART-50 → Korean Text
-               → g2pK/Jamo → FastSpeech2 → Mel-Spectrogram → VocGAN → Korean Speech
+┌───────────────────────────────────────┐
+│               01  INPUT               │
+│                                       │
+│         English speech (WAV)          │
+└───────────────────────────────────────┘
+
+                   ↓
+
+┌───────────────────────────────────────┐
+│        02  SPEECH RECOGNITION         │
+│                                       │
+│    Whisper base.en → English text     │
+└───────────────────────────────────────┘
+
+                   ↓
+
+┌───────────────────────────────────────┐
+│        03  MACHINE TRANSLATION        │
+│                                       │
+│        mBART-50 → Korean text         │
+└───────────────────────────────────────┘
+
+                   ↓
+
+┌───────────────────────────────────────┐
+│     04  PRONUNCIATION PROCESSING      │
+│                                       │
+│    g2pK + Jamo → phoneme sequence     │
+└───────────────────────────────────────┘
+
+                   ↓
+
+┌───────────────────────────────────────┐
+│          05  ACOUSTIC MODEL           │
+│                                       │
+│     FastSpeech2 → mel-spectrogram     │
+└───────────────────────────────────────┘
+
+                   ↓
+
+┌───────────────────────────────────────┐
+│        06  WAVEFORM GENERATION        │
+│                                       │
+│     VocGAN → Korean speech (WAV)      │
+└───────────────────────────────────────┘
 ```
 
 - **STT:** Whisper `base.en`
