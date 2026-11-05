@@ -32,11 +32,31 @@ The modules are connected by `src/pipeline.py`; CUDA availability determines CPU
 | Hidden size | 256 |
 | Inference checkpoint step | 350000 |
 
-Training records include F0, duration, energy, mel, mel-postnet, and total loss monitoring.
+### Training and Evaluation
+
+FastSpeech2 optimizes five loss components: **mel**, **mel-postnet**, **duration**, **F0 (pitch)**, and **energy**. These track spectral reconstruction, speech timing, intonation, and intensity.
+
+- `src/train.py` records **total training loss** to TensorBoard.
+- `src/evaluate.py` computes the five individual validation losses and prints their values. The supplied portfolio also contains a historical TensorBoard screenshot, but the current public code does not establish the provenance of every curve in that image.
+
+These loss values assess acoustic prediction objectives; they are not direct measurements of speech naturalness or translation accuracy.
 
 ## Results
 
-A documented inference example produced Korean speech from English audio; input/output WAV samples and the synthesized spectrogram are available in the [portfolio](https://app.notion.com/p/3e968564df5a81f0b538ed4ad190e11f). Quantitative STT, translation, speech-quality, and latency scores are not available.
+### Speech Translation Sample
+
+| Stage | Example |
+| --- | --- |
+| English speech input | “She looked into the mirror and saw another person.” |
+| Korean text output | “그녀는 거울을 들여다보고 다른 사람을 봤습니다.” |
+
+The [portfolio demonstration](https://app.notion.com/p/3e968564df5a81f0b538ed4ad190e11f) includes **input WAV, synthesized Korean WAV, and an output mel-spectrogram image**.
+
+### Synthesized Spectrogram
+
+FastSpeech2 predicts a mel-spectrogram representing frequency-band energy across time, which VocGAN converts into the final audio waveform. The synthesis model also predicts **F0** (pitch) and **energy** (speech intensity). However, the public `utils.plot_data()` implementation displays **only the mel-spectrogram**, not separate F0 or energy curves.
+
+This demonstrates an end-to-end inference example, **not** an objective guarantee of pronunciation accuracy, perceptual audio quality, or translation performance. Quantitative STT, translation, TTS, and latency metrics are not available.
 
 ## Repository Structure
 
@@ -67,12 +87,7 @@ A documented inference example produced Korean speech from English audio; input/
 
 ## Usage
 
-### Inference Example
-
-| Stage | Example |
-| --- | --- |
-| English input | “She looked into the mirror and saw another person.” |
-| Korean output text | “그녀는 거울을 들여다보고 다른 사람을 봤습니다.” |
+### Requirements
 
 The pipeline requires preprocessed KSS artifacts, a FastSpeech2 checkpoint, and a pretrained VocGAN checkpoint. Large datasets and model weights are intentionally excluded.
 
@@ -121,7 +136,9 @@ The full KSS data, generated audio, checkpoints, and vocoder weights are not inc
 
 ## Limitations
 
-Errors can propagate from speech recognition through translation to synthesis. A fresh checkout also requires external checkpoints and preprocessing artifacts before inference can run.
+Whisper transcription errors may propagate into mBART translations and the final Korean speech output. The integration was demonstrated qualitatively, but the individual stages have not been evaluated with comparable, controlled accuracy or listening tests.
+
+Reproducing the full pipeline from a fresh checkout requires external FastSpeech2/VocGAN weights and KSS preprocessing artifacts. Future work includes stage-wise evaluation to identify error sources, plus translation-quality and perceptual speech-quality measurements.
 
 ## Data and Third-party Resources
 
