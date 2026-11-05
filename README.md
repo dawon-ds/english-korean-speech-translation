@@ -55,7 +55,7 @@ These loss values assess acoustic prediction objectives; they are not direct mea
 | English speech input | “She looked into the mirror and saw another person.” |
 | Korean text output | “그녀는 거울을 들여다보고 다른 사람을 봤습니다.” |
 
-**Audio samples (included in this repository)**
+**Audio Samples**
 
 | Input English speech | Generated Korean speech |
 | :---: | :---: |
