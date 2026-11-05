@@ -55,7 +55,13 @@ These loss values assess acoustic prediction objectives; they are not direct mea
 | English speech input | “She looked into the mirror and saw another person.” |
 | Korean text output | “그녀는 거울을 들여다보고 다른 사람을 봤습니다.” |
 
-The [portfolio demonstration](https://app.notion.com/p/3e968564df5a81f0b538ed4ad190e11f) includes **input WAV, synthesized Korean WAV, and an output mel-spectrogram image**.
+**Audio samples (included in this repository)**
+
+| Input English speech | Generated Korean speech |
+| :---: | :---: |
+| [Listen to input](results/input_voice.wav) | [Listen to output](results/output_voice.wav) |
+
+The synthesized mel-spectrogram image and its interpretation are available in the [portfolio](https://app.notion.com/p/3e968564df5a81f0b538ed4ad190e11f).
 
 ### Synthesized Spectrogram
 
@@ -85,6 +91,9 @@ This demonstrates an end-to-end inference example, **not** an objective guarante
 │   ├── loss.py
 │   ├── optimizer.py
 │   └── hparams.py
+├── results/
+│   ├── input_voice.wav     # English speech input
+│   └── output_voice.wav    # Generated Korean speech
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -137,7 +146,7 @@ The current synthesis function truncates the output label to ten characters, whi
 
 ### Data & Artifacts
 
-The full KSS data, generated audio, checkpoints, and vocoder weights are not included in this repository.
+The example input/output WAV files are included under `results/`. The full KSS data, other generated audio, checkpoints, and vocoder weights are not included.
 
 ## Limitations
 
