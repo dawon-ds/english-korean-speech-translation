@@ -52,4 +52,4 @@ def pipeline(input_wav_path, step=350000):
     )
 
 if __name__ == "__main__":
-    pipeline("input_voice.wav", step=350000)
+    pipeline("results/input_voice.wav", step=350000)

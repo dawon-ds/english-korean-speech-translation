@@ -74,111 +74,64 @@ This demonstrates an end-to-end inference example, **not** an objective guarante
 
 ```text
 .
+├── src/
+│   ├── pipeline.py
+│   ├── inference/          # STT, translation, and synthesis
+│   │   ├── stt.py
+│   │   ├── translate.py
+│   │   └── synthesize.py
+│   ├── models/             # FastSpeech2 and vocoder
+│   │   ├── fastspeech2.py
+│   │   ├── transformer/
+│   │   └── vocoder/
+│   ├── training/           # Training and evaluation
+│   │   ├── train.py
+│   │   └── evaluate.py
+│   ├── preprocessing/      # KSS, text, and audio processing
+│   │   ├── data/
+│   │   ├── text/
+│   │   └── audio/
+│   ├── hparams.py
+│   └── utils.py
 ├── results/
 │   ├── input_voice.wav
 │   └── output_voice.wav
-├── src/
-│   ├── inference/
-│   │   ├── __init__.py
-│   │   ├── stt.py
-│   │   ├── synthesize.py
-│   │   └── translate.py
-│   ├── models/
-│   │   ├── transformer/
-│   │   │   ├── __init__.py
-│   │   │   ├── Constants.py
-│   │   │   ├── Layers.py
-│   │   │   ├── Models.py
-│   │   │   ├── Modules.py
-│   │   │   └── SubLayers.py
-│   │   ├── vocoder/
-│   │   │   ├── __init__.py
-│   │   │   └── vocgan_generator.py
-│   │   ├── __init__.py
-│   │   ├── fastspeech2.py
-│   │   └── modules.py
-│   ├── preprocessing/
-│   │   ├── audio/
-│   │   │   ├── __init__.py
-│   │   │   ├── audio_processing.py
-│   │   │   ├── stft.py
-│   │   │   └── tools.py
-│   │   ├── data/
-│   │   │   ├── __init__.py
-│   │   │   └── kss.py
-│   │   ├── text/
-│   │   │   ├── __init__.py
-│   │   │   ├── cleaners.py
-│   │   │   ├── korean.py
-│   │   │   ├── num.py
-│   │   │   └── symbols.py
-│   │   ├── __init__.py
-│   │   ├── prepare_align.py
-│   │   └── preprocess.py
-│   ├── training/
-│   │   ├── __init__.py
-│   │   ├── dataset.py
-│   │   ├── evaluate.py
-│   │   ├── loss.py
-│   │   ├── optimizer.py
-│   │   └── train.py
-│   ├── __init__.py
-│   ├── hparams.py
-│   ├── pipeline.py
-│   └── utils.py
-├── .gitignore
-├── README.md
-└── requirements.txt
+├── requirements.txt
+└── README.md
 ```
 
 ## Usage
 
-### Requirements
-
-The pipeline requires preprocessed KSS artifacts, a FastSpeech2 checkpoint, and a pretrained VocGAN checkpoint. Large datasets and model weights are intentionally excluded.
-
-From the repository root, install the dependencies and run the entry point as a Python module so the reorganized package imports resolve correctly:
+Run from the repository root. Install dependencies and provide the required model checkpoints and KSS preprocessing artifacts (not included in the repository).
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Place the required artifacts at the paths configured in `src/hparams.py`:
-
-| Artifact | Default path |
+| Required file | Expected location |
 | --- | --- |
-| Input English WAV | `input_voice.wav` |
+| Input WAV | `results/input_voice.wav` |
 | FastSpeech2 checkpoint | `ckpt/kss/checkpoint_350000.pth.tar` |
-| Preprocessed KSS statistics | `preprocessed/kss/mel_stat.npy`, `f0_stat.npy`, `energy_stat.npy` |
-| VocGAN weights | `vocoder/pretrained_models/vocgan_kss_pretrained_model_epoch_4500.pt` |
+| KSS statistics | `preprocessed/kss/{mel,f0,energy}_stat.npy` |
+| VocGAN checkpoint | `vocoder/pretrained_models/vocgan_kss_pretrained_model_epoch_4500.pt` |
 
-For PowerShell:
+**Run inference (PowerShell):**
 
 ```powershell
 $env:KSS_DATA_PATH="C:/path/to/kss"
 python -m src.pipeline
 ```
 
-For Bash:
+**Run inference (Bash):**
 
 ```bash
 export KSS_DATA_PATH="/path/to/kss"
 python -m src.pipeline
 ```
 
-`KSS_DATA_PATH` controls the source KSS dataset location; it does not change the checkpoint or preprocessed-artifact paths. Edit `src/hparams.py` if those files are stored elsewhere. The entry point uses `input_voice.wav`; change the argument in `src/pipeline.py` to use another input. To run training or preprocessing entry points, use `python -m src.training.train` or `python -m src.preprocessing.preprocess` from the repository root.
+`KSS_DATA_PATH` specifies the source KSS dataset, not checkpoint paths. Change artifact locations in `src/hparams.py` if needed. The entry point reads `results/input_voice.wav`.
 
-Synthesis writes these outputs under `results/`:
-
-- `_vocgan_output_voi.wav` — VocGAN speech output
-- `_griffin_lim_output_voi.wav` — Griffin–Lim reconstruction
-- `_output_voi.png` — synthesized mel-spectrogram visualization (F0 and energy are predicted but not separately plotted by the public code)
-
-The current synthesis function truncates the output label to ten characters, which produces the `output_voi` filenames.
-
-### Data & Artifacts
-
-The example input/output WAV files are included under `results/`. The full KSS data, other generated audio, checkpoints, and vocoder weights are not included.
+The synthesis code writes a VocGAN WAV (`_vocgan_output_voi.wav`), a Griffin–Lim WAV (`_griffin_lim_output_voi.wav`), and a mel-spectrogram image (`_output_voi.png`) to `results/`. The uploaded `output_voice.wav` is the curated demonstration sample; the generated filenames are controlled by `src/inference/synthesize.py`.
 
 ## Limitations
 

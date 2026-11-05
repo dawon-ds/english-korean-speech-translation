@@ -6,7 +6,6 @@ venv/
 .DS_Store
 checkpoints/
 checkpoint/
-results/
 logs/
 log/
 data/kss/
@@ -16,6 +15,7 @@ preprocessed/kss/*.npy
 *.pt
 *.ckpt
 *.wav
+!results/*.wav
 *.mp3
 .env.*
 !.env.example
