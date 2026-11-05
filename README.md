@@ -10,9 +10,16 @@ A personal project focused on connecting pretrained models through compatible te
 
 ### Pipeline
 
-`English Speech → Whisper → English Text → mBART-50 → Korean Text`
+```text
+English Speech → Whisper → English Text
+              ↓
+          mBART-50 → Korean Text
+              ↓
+   g2pK / Jamo → FastSpeech2
+              ↓
+  Mel-Spectrogram → VocGAN → Korean Speech
+```
 
-`Korean Text → g2pK/Jamo → FastSpeech2 → Mel-Spectrogram → VocGAN → Korean Speech`
 - **STT:** Whisper `base.en`
 - **Translation:** `facebook/mbart-large-50-many-to-many-mmt`
 - **Korean pronunciation processing:** g2pK and Jamo decomposition
