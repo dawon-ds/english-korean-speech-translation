@@ -74,19 +74,61 @@ This demonstrates an end-to-end inference example, **not** an objective guarante
 
 ```text
 .
-├── src/
-│   ├── pipeline.py        # End-to-end inference entry point
-│   ├── inference/         # Whisper, mBART, and speech synthesis
-│   ├── models/            # FastSpeech2, Transformer, and VocGAN
-│   ├── training/          # Training, evaluation, and losses
-│   ├── preprocessing/     # KSS data, text, and audio processing
-│   ├── hparams.py         # Model and artifact configuration
-│   └── utils.py           # Shared utilities
 ├── results/
 │   ├── input_voice.wav
 │   └── output_voice.wav
-├── requirements.txt
-└── README.md
+├── src/
+│   ├── inference/
+│   │   ├── __init__.py
+│   │   ├── stt.py
+│   │   ├── synthesize.py
+│   │   └── translate.py
+│   ├── models/
+│   │   ├── transformer/
+│   │   │   ├── __init__.py
+│   │   │   ├── Constants.py
+│   │   │   ├── Layers.py
+│   │   │   ├── Models.py
+│   │   │   ├── Modules.py
+│   │   │   └── SubLayers.py
+│   │   ├── vocoder/
+│   │   │   ├── __init__.py
+│   │   │   └── vocgan_generator.py
+│   │   ├── __init__.py
+│   │   ├── fastspeech2.py
+│   │   └── modules.py
+│   ├── preprocessing/
+│   │   ├── audio/
+│   │   │   ├── __init__.py
+│   │   │   ├── audio_processing.py
+│   │   │   ├── stft.py
+│   │   │   └── tools.py
+│   │   ├── data/
+│   │   │   ├── __init__.py
+│   │   │   └── kss.py
+│   │   ├── text/
+│   │   │   ├── __init__.py
+│   │   │   ├── cleaners.py
+│   │   │   ├── korean.py
+│   │   │   ├── num.py
+│   │   │   └── symbols.py
+│   │   ├── __init__.py
+│   │   ├── prepare_align.py
+│   │   └── preprocess.py
+│   ├── training/
+│   │   ├── __init__.py
+│   │   ├── dataset.py
+│   │   ├── evaluate.py
+│   │   ├── loss.py
+│   │   ├── optimizer.py
+│   │   └── train.py
+│   ├── __init__.py
+│   ├── hparams.py
+│   ├── pipeline.py
+│   └── utils.py
+├── .gitignore
+├── README.md
+└── requirements.txt
 ```
 
 ## Usage
