@@ -66,7 +66,9 @@ These loss values assess acoustic prediction objectives; they are not direct mea
 
 ### Synthesized Spectrogram
 
-![Synthesized mel-spectrogram](results/_output_voi.png)
+<p align="center">
+  <img src="results/_output_voi.png" alt="Synthesized mel-spectrogram" width="650">
+</p>
 
 FastSpeech2 predicts a mel-spectrogram that VocGAN converts to a waveform. It also predicts **F0** and **energy**, but `src/utils.py` currently plots only the mel-spectrogram. The demonstration is qualitative; STT, translation, TTS, and latency metrics are not available.
 
