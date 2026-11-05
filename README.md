@@ -61,7 +61,6 @@ These loss values assess acoustic prediction objectives; they are not direct mea
 | :---: | :---: |
 | [Listen to input](results/input_voice.wav) | [Listen to output](results/output_voice.wav) |
 
-The synthesized mel-spectrogram image and its interpretation are available in the [portfolio](https://app.notion.com/p/3e968564df5a81f0b538ed4ad190e11f).
 
 ### Synthesized Spectrogram
 
