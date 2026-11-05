@@ -57,10 +57,12 @@ These loss values assess acoustic prediction objectives; they are not direct mea
 
 **Audio Samples**
 
-| Input English speech | Generated Korean speech |
-| :---: | :---: |
-| [Listen to input](results/input_voice.wav) | [Listen to output](results/output_voice.wav) |
-
+<table>
+  <tr>
+    <td align="center"><a href="results/input_voice.wav">Input English speech</a></td>
+    <td align="center"><a href="results/output_voice.wav">Generated Korean speech</a></td>
+  </tr>
+</table>
 
 ### Synthesized Spectrogram
 
