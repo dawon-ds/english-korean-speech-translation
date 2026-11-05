@@ -10,54 +10,9 @@ A personal project focused on connecting pretrained models through compatible te
 
 ### Pipeline
 
-```text
-┌───────────────────────────────────────┐
-│               01  INPUT               │
-│                                       │
-│         English speech (WAV)          │
-└───────────────────────────────────────┘
+`English Speech → Whisper → English Text → mBART-50 → Korean Text`
 
-                   ↓
-
-┌───────────────────────────────────────┐
-│        02  SPEECH RECOGNITION         │
-│                                       │
-│    Whisper base.en → English text     │
-└───────────────────────────────────────┘
-
-                   ↓
-
-┌───────────────────────────────────────┐
-│        03  MACHINE TRANSLATION        │
-│                                       │
-│        mBART-50 → Korean text         │
-└───────────────────────────────────────┘
-
-                   ↓
-
-┌───────────────────────────────────────┐
-│     04  PRONUNCIATION PROCESSING      │
-│                                       │
-│    g2pK + Jamo → phoneme sequence     │
-└───────────────────────────────────────┘
-
-                   ↓
-
-┌───────────────────────────────────────┐
-│          05  ACOUSTIC MODEL           │
-│                                       │
-│     FastSpeech2 → mel-spectrogram     │
-└───────────────────────────────────────┘
-
-                   ↓
-
-┌───────────────────────────────────────┐
-│        06  WAVEFORM GENERATION        │
-│                                       │
-│     VocGAN → Korean speech (WAV)      │
-└───────────────────────────────────────┘
-```
-
+`Korean Text → g2pK/Jamo → FastSpeech2 → Mel-Spectrogram → VocGAN → Korean Speech`
 - **STT:** Whisper `base.en`
 - **Translation:** `facebook/mbart-large-50-many-to-many-mmt`
 - **Korean pronunciation processing:** g2pK and Jamo decomposition
