@@ -66,9 +66,7 @@ These loss values assess acoustic prediction objectives; they are not direct mea
 
 ### Synthesized Spectrogram
 
-FastSpeech2 predicts a mel-spectrogram representing frequency-band energy across time, which VocGAN converts into the final audio waveform. The synthesis model also predicts **F0** (pitch) and **energy** (speech intensity). However, the public `utils.plot_data()` implementation displays **only the mel-spectrogram**, not separate F0 or energy curves.
-
-This demonstrates an end-to-end inference example, **not** an objective guarantee of pronunciation accuracy, perceptual audio quality, or translation performance. Quantitative STT, translation, TTS, and latency metrics are not available.
+FastSpeech2 predicts a mel-spectrogram that VocGAN converts to a waveform. It also predicts **F0** and **energy**, but `src/utils.py` currently plots only the mel-spectrogram. The demonstration is qualitative; STT, translation, TTS, and latency metrics are not available.
 
 ## Repository Structure
 
@@ -102,7 +100,7 @@ This demonstrates an end-to-end inference example, **not** an objective guarante
 
 ## Usage
 
-Run from the repository root. Install dependencies and provide the required model checkpoints and KSS preprocessing artifacts (not included in the repository).
+Install dependencies from the repository root. FastSpeech2/VocGAN checkpoints and preprocessed KSS artifacts must be supplied separately.
 
 ```bash
 pip install -r requirements.txt
@@ -129,9 +127,7 @@ export KSS_DATA_PATH="/path/to/kss"
 python -m src.pipeline
 ```
 
-`KSS_DATA_PATH` specifies the source KSS dataset, not checkpoint paths. Change artifact locations in `src/hparams.py` if needed. The entry point reads `results/input_voice.wav`.
-
-The synthesis code writes a VocGAN WAV (`_vocgan_output_voi.wav`), a Griffin–Lim WAV (`_griffin_lim_output_voi.wav`), and a mel-spectrogram image (`_output_voi.png`) to `results/`. The uploaded `output_voice.wav` is the curated demonstration sample; the generated filenames are controlled by `src/inference/synthesize.py`.
+`KSS_DATA_PATH` sets the source dataset path; other artifact paths are configured in `src/hparams.py`. The pipeline reads `results/input_voice.wav` and writes VocGAN/Griffin–Lim WAVs and a mel-spectrogram PNG to `results/`. The uploaded `output_voice.wav` is the saved demonstration sample, not the default generated filename.
 
 ## Limitations
 
