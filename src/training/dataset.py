@@ -4,9 +4,9 @@ import os
 import numpy as np
 from torch.utils.data import Dataset as TorchDataset
 
-import hparams
-from text import text_to_sequence
-from utils import pad_1D, pad_2D, process_meta, standard_norm
+from src import hparams
+from src.preprocessing.text import text_to_sequence
+from src.utils import pad_1D, pad_2D, process_meta, standard_norm
 
 
 class Dataset(TorchDataset):

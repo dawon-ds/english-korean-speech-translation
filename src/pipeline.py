@@ -2,12 +2,12 @@ import os
 import torch
 import numpy as np
 
-from stt import run_stt
-from translate import run_translate
-from synthesize import get_FastSpeech2, synthesize
-from text import text_to_sequence
-import utils
-import hparams as hp
+from src.inference.stt import run_stt
+from src.inference.translate import run_translate
+from src.inference.synthesize import get_FastSpeech2, synthesize
+from src.preprocessing.text import text_to_sequence
+from src import utils
+from src import hparams as hp
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

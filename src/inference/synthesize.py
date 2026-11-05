@@ -6,11 +6,11 @@ import numpy as np
 from g2pk import G2p
 from jamo import h2j
 
-import hparams as hp
-from fastspeech2 import FastSpeech2
-from text import text_to_sequence
-import utils
-import audio as Audio
+from src import hparams as hp
+from src.models.fastspeech2 import FastSpeech2
+from src.preprocessing.text import text_to_sequence
+from src import utils
+from src.preprocessing import audio as Audio
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

@@ -1,8 +1,8 @@
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-from transformer.Modules import ScaledDotProductAttention
-import hparams as hp
+from src.models.transformer.Modules import ScaledDotProductAttention
+from src import hparams as hp
 
 class MultiHeadAttention(nn.Module):
     def __init__(self, n_head, d_model, d_k, d_v, dropout=0.1):

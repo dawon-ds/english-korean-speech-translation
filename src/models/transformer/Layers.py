@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-from transformer.SubLayers import MultiHeadAttention, PositionwiseFeedForward
+from src.models.transformer.SubLayers import MultiHeadAttention, PositionwiseFeedForward
 
 class FFTBlock(torch.nn.Module):
     def __init__(self,d_model,d_inner,n_head,d_k,d_v,dropout=.1):

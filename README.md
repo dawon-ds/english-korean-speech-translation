@@ -41,8 +41,8 @@ The modules are connected by `src/pipeline.py`; CUDA availability determines CPU
 
 FastSpeech2 optimizes five loss components: **mel**, **mel-postnet**, **duration**, **F0 (pitch)**, and **energy**. These track spectral reconstruction, speech timing, intonation, and intensity.
 
-- `src/train.py` records **total training loss** to TensorBoard.
-- `src/evaluate.py` computes the five individual validation losses and prints their values. The supplied portfolio also contains a historical TensorBoard screenshot, but the current public code does not establish the provenance of every curve in that image.
+- `src/training/train.py` records **total training loss** to TensorBoard.
+- `src/training/evaluate.py` computes the five individual validation losses and prints their values. The supplied portfolio also contains a historical TensorBoard screenshot, but the current public code does not establish the provenance of every curve in that image.
 
 These loss values assess acoustic prediction objectives; they are not direct measurements of speech naturalness or translation accuracy.
 
@@ -75,28 +75,17 @@ This demonstrates an end-to-end inference example, **not** an objective guarante
 ```text
 .
 ├── src/
-│   ├── pipeline.py          # End-to-end inference
-│   ├── stt.py               # Whisper STT
-│   ├── translate.py         # mBART EN → KO translation
-│   ├── synthesize.py        # Speech synthesis entry point
-│   ├── fastspeech2.py       # FastSpeech2 model
-│   ├── modules.py           # Variance adaptor and predictors
-│   ├── transformer/         # Encoder/decoder and FFT blocks
-│   ├── vocoder/             # VocGAN generator
-│   ├── text/                # Korean text preprocessing
-│   ├── audio/               # STFT and mel utilities
-│   ├── data/                # KSS preprocessing
-│   ├── dataset.py           # Training dataset loader
-│   ├── train.py             # Training pipeline
-│   ├── evaluate.py          # Evaluation pipeline
-│   ├── loss.py
-│   ├── optimizer.py
-│   └── hparams.py
+│   ├── pipeline.py        # End-to-end inference entry point
+│   ├── inference/         # Whisper, mBART, and speech synthesis
+│   ├── models/            # FastSpeech2, Transformer, and VocGAN
+│   ├── training/          # Training, evaluation, and losses
+│   ├── preprocessing/     # KSS data, text, and audio processing
+│   ├── hparams.py         # Model and artifact configuration
+│   └── utils.py           # Shared utilities
 ├── results/
-│   ├── input_voice.wav     # English speech input
-│   └── output_voice.wav    # Generated Korean speech
+│   ├── input_voice.wav
+│   └── output_voice.wav
 ├── requirements.txt
-├── .gitignore
 └── README.md
 ```
 
@@ -106,7 +95,7 @@ This demonstrates an end-to-end inference example, **not** an objective guarante
 
 The pipeline requires preprocessed KSS artifacts, a FastSpeech2 checkpoint, and a pretrained VocGAN checkpoint. Large datasets and model weights are intentionally excluded.
 
-From the repository root, install the dependencies:
+From the repository root, install the dependencies and run the entry point as a Python module so the reorganized package imports resolve correctly:
 
 ```bash
 pip install -r requirements.txt
@@ -125,17 +114,17 @@ For PowerShell:
 
 ```powershell
 $env:KSS_DATA_PATH="C:/path/to/kss"
-python src/pipeline.py
+python -m src.pipeline
 ```
 
 For Bash:
 
 ```bash
 export KSS_DATA_PATH="/path/to/kss"
-python src/pipeline.py
+python -m src.pipeline
 ```
 
-`KSS_DATA_PATH` controls the source KSS dataset location; it does not change the checkpoint or preprocessed-artifact paths. Edit `src/hparams.py` if those files are stored elsewhere. The entry point uses `input_voice.wav`; change the argument in `src/pipeline.py` to use another input.
+`KSS_DATA_PATH` controls the source KSS dataset location; it does not change the checkpoint or preprocessed-artifact paths. Edit `src/hparams.py` if those files are stored elsewhere. The entry point uses `input_voice.wav`; change the argument in `src/pipeline.py` to use another input. To run training or preprocessing entry points, use `python -m src.training.train` or `python -m src.preprocessing.preprocess` from the repository root.
 
 Synthesis writes these outputs under `results/`:
 

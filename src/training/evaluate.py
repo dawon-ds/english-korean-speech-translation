@@ -6,11 +6,11 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 
-import hparams as hp
-import utils
-from dataset import Dataset
-from fastspeech2 import FastSpeech2
-from loss import FastSpeech2Loss
+from src import hparams as hp
+from src import utils
+from src.training.dataset import Dataset
+from src.models.fastspeech2 import FastSpeech2
+from src.training.loss import FastSpeech2Loss
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

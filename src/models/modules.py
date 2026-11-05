@@ -3,8 +3,8 @@ from collections import OrderedDict
 import torch
 import torch.nn as nn
 
-import hparams as hp
-import utils
+from src import hparams as hp
+from src import utils
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

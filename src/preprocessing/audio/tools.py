@@ -1,9 +1,9 @@
 import torch
 import numpy as np
 from scipy.io.wavfile import read,write
-import audio.stft as stft
-from audio.audio_processing import griffin_lim
-import hparams
+from src.preprocessing.audio import stft
+from src.preprocessing.audio.audio_processing import griffin_lim
+from src import hparams
 
 _stft=stft.TacotronSTFT(hparams.filter_length,hparams.hop_length,hparams.win_length,hparams.n_mel_channels,hparams.sampling_rate,hparams.mel_fmin,hparams.mel_fmax)
 

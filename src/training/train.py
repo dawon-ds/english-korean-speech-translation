@@ -7,13 +7,13 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 
-import hparams as hp
-import utils
-from dataset import Dataset
-from evaluate import evaluate
-from fastspeech2 import FastSpeech2
-from loss import FastSpeech2Loss
-from optimizer import ScheduledOptim
+from src import hparams as hp
+from src import utils
+from src.training.dataset import Dataset
+from src.training.evaluate import evaluate
+from src.models.fastspeech2 import FastSpeech2
+from src.training.loss import FastSpeech2Loss
+from src.training.optimizer import ScheduledOptim
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

@@ -1,4 +1,4 @@
-import hparams as hp
+from src import hparams as hp
 
 def main():
     """Alignment preparation entry point.

@@ -1,6 +1,6 @@
 import os
-from data import kss
-import hparams as hp
+from src.preprocessing.data import kss
+from src import hparams as hp
 
 def write_metadata(train, val, out_dir):
     with open(os.path.join(out_dir, 'train.txt'), 'w', encoding='utf-8') as f:

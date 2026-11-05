@@ -9,8 +9,8 @@ from scipy.io import wavfile
 matplotlib.use("Agg")
 from matplotlib import pyplot as plt
 
-import hparams as hp
-from vocoder.vocgan_generator import Generator
+from src import hparams as hp
+from src.models.vocoder.vocgan_generator import Generator
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 SILENCE_PHONES = {"sil", "sp", "spn"}

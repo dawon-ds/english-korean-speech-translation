@@ -4,9 +4,9 @@ import tgt
 from scipy.io.wavfile import read
 import pyworld as pw
 import torch
-import audio as Audio
-from utils import get_alignment,remove_outlier,average_by_duration
-import hparams as hp
+from src.preprocessing import audio as Audio
+from src.utils import get_alignment,remove_outlier,average_by_duration
+from src import hparams as hp
 from sklearn.preprocessing import StandardScaler
 
 def build_from_path(in_dir,out_dir,meta):
